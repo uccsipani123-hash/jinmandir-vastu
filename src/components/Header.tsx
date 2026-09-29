@@ -15,16 +15,23 @@ import {
   ShieldAlert,
   Sparkles,
   Package,
-  FileText
+  FileText,
+  Download
 } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenAudit: () => void;
+  onOpenDownloadCenter: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenAudit }) => {
+export const Header: React.FC<HeaderProps> = ({ 
+  activeTab, 
+  setActiveTab, 
+  onOpenAudit,
+  onOpenDownloadCenter
+}) => {
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-b from-amber-50/95 via-amber-50/90 to-amber-100/90 backdrop-blur-md border-b border-amber-200/80 shadow-sm">
       {/* Sacred Top Banner */}
@@ -64,13 +71,23 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenA
         </div>
 
         {/* Right: Quick Action Buttons */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 flex-wrap justify-center">
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap justify-center">
+          {/* Download Center Prominent Button */}
+          <button
+            onClick={onOpenDownloadCenter}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg text-xs sm:text-sm font-bold hover:from-amber-700 hover:to-amber-800 transition-all shadow-sm active:scale-95 cursor-pointer ring-2 ring-amber-400/60"
+            title="वास्तु प्रमाण-पत्र, ग्रंथ व प्रोजेक्ट डाउनलोड करें"
+          >
+            <Download className="w-4 h-4 text-amber-200 animate-bounce" />
+            <span>📥 डाउनलोड केंद्र</span>
+          </button>
+
           <a
             href="tel:9509061075"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-700 to-amber-800 text-white rounded-lg text-xs sm:text-sm font-medium hover:from-amber-800 hover:to-amber-900 transition-all shadow-sm active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-800 to-amber-900 text-white rounded-lg text-xs sm:text-sm font-medium hover:from-amber-900 hover:to-stone-900 transition-all shadow-sm active:scale-95"
             title="संजीव सिपानी जी से सीधे बात करें"
           >
-            <Phone className="w-4 h-4 text-amber-300 animate-pulse" />
+            <Phone className="w-4 h-4 text-amber-300" />
             <span>9509061075</span>
           </a>
 
@@ -82,12 +99,12 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenA
             title="व्हाट्सएप पर संदेश भेजें"
           >
             <MessageCircle className="w-4 h-4 text-emerald-300" />
-            <span>व्हाट्सएप 9660870376</span>
+            <span className="hidden sm:inline">व्हाट्सएप</span>
           </a>
 
           <button
             onClick={() => window.print()}
-            className="no-print p-2 rounded-lg bg-amber-100/80 hover:bg-amber-200 border border-amber-300 text-amber-900 transition-colors hidden lg:flex items-center gap-1 text-xs"
+            className="no-print p-2 rounded-lg bg-amber-100/80 hover:bg-amber-200 border border-amber-300 text-amber-900 transition-colors hidden xl:flex items-center gap-1 text-xs cursor-pointer"
             title="मंदिर वास्तु गाइड प्रिंट करें"
           >
             <Printer className="w-4 h-4" />
@@ -101,6 +118,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenA
         <div className="max-w-7xl mx-auto px-4 flex items-center space-x-1 sm:space-x-2 py-2">
           {[
             { id: 'all-vastu', label: 'मंदिर वास्तु नियम (26 विषय)', icon: BookOpen },
+            { id: 'download-center', label: '📥 डाउनलोड केंद्र (PDF / ZIP)', icon: Download, isHighlight: true },
             { id: 'compass-map', label: 'दिशा चक्र व साधु प्रवाह', icon: Compass },
             { id: 'dimensions', label: 'माप कैलकुलेटर (Dimensions)', icon: Ruler },
             { id: 'dosh-checklist', label: 'वास्तु दोष चेकलिस्ट (12 दोष)', icon: ShieldAlert },
@@ -121,18 +139,24 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenA
               <button
                 key={tab.id}
                 onClick={() => {
+                  if (tab.id === 'download-center') {
+                    onOpenDownloadCenter();
+                    return;
+                  }
                   setActiveTab(tab.id);
                   if (tab.id === 'audit') {
                     onOpenAudit();
                   }
                 }}
                 className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                  isActive
+                  tab.isHighlight
+                    ? 'bg-amber-100 text-amber-950 border border-amber-400 font-bold hover:bg-amber-200'
+                    : isActive
                     ? 'bg-amber-800 text-amber-50 shadow-sm border border-amber-900'
                     : 'text-stone-700 hover:text-amber-900 hover:bg-amber-100/70'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-amber-300' : 'text-amber-700'}`} />
+                <Icon className={`w-3.5 h-3.5 ${tab.isHighlight ? 'text-amber-700' : isActive ? 'text-amber-300' : 'text-amber-700'}`} />
                 <span>{tab.label}</span>
               </button>
             );

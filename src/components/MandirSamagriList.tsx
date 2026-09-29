@@ -10,8 +10,10 @@ import {
   Droplets, 
   RotateCcw,
   Search,
-  Filter
+  Filter,
+  Download
 } from 'lucide-react';
+import { downloadPratishthaSamagriDoc } from '../utils/downloadHelpers';
 
 interface SamagriCategory {
   id: string;
@@ -119,18 +121,27 @@ export const MandirSamagriList: React.FC = () => {
         </div>
 
         {/* Progress & Print */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 flex-wrap">
           <div className="bg-amber-50 border border-amber-300 px-3.5 py-2 rounded-2xl text-center">
             <span className="text-[10px] font-bold text-amber-800 uppercase block">सामग्री उपलब्धता</span>
             <strong className="text-xl font-serif-jain text-amber-950 font-bold block">{checkedCount} / {totalItemsCount}</strong>
           </div>
 
           <button
+            onClick={() => downloadPratishthaSamagriDoc()}
+            className="no-print px-3.5 py-2.5 rounded-xl bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 transition-transform"
+            title="ऑफ़लाइन सामग्री सूची डाउनलोड करें"
+          >
+            <Download className="w-4 h-4 text-amber-300" />
+            <span>सूची डाउनलोड करें</span>
+          </button>
+
+          <button
             onClick={() => window.print()}
-            className="no-print px-4 py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-amber-300 shadow-2xs"
+            className="no-print px-3.5 py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-amber-300 shadow-2xs"
           >
             <Printer className="w-4 h-4" />
-            <span>सूची प्रिंट करें</span>
+            <span>प्रिंट</span>
           </button>
         </div>
       </div>

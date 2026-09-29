@@ -12,8 +12,10 @@ import {
   MessageCircle,
   HelpCircle,
   Layers,
-  Award
+  Award,
+  Download
 } from 'lucide-react';
+import { downloadPratishthaSamagriDoc } from '../utils/downloadHelpers';
 
 interface PratishthaDay {
   dayNumber: number;
@@ -213,13 +215,24 @@ export const PratishthaVidhiGuide: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={() => window.print()}
-          className="no-print self-start md:self-auto px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-bold rounded-xl border border-amber-300 flex items-center gap-1.5 cursor-pointer shadow-2xs"
-        >
-          <Printer className="w-4 h-4" />
-          <span>प्रतिष्ठा विधि प्रिंट करें</span>
-        </button>
+        <div className="flex items-center gap-2 flex-wrap self-start md:self-auto">
+          <button
+            onClick={() => downloadPratishthaSamagriDoc()}
+            className="no-print px-3.5 py-2 bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 transition-transform"
+            title="प्रतिष्ठा विधि व सामग्री सूची डाउनलोड करें"
+          >
+            <Download className="w-4 h-4 text-amber-300" />
+            <span>गाइड डाउनलोड करें</span>
+          </button>
+
+          <button
+            onClick={() => window.print()}
+            className="no-print px-3.5 py-2 bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-bold rounded-xl border border-amber-300 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+          >
+            <Printer className="w-4 h-4" />
+            <span>प्रिंट</span>
+          </button>
+        </div>
       </div>
 
       {/* 7-Day Stepper Navigation */}

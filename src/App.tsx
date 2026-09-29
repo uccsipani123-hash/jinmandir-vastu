@@ -13,6 +13,7 @@ import { VastuDoshChecklist } from './components/VastuDoshChecklist';
 import { PratishthaVidhiGuide } from './components/PratishthaVidhiGuide';
 import { MandirSamagriList } from './components/MandirSamagriList';
 import { InteractiveVastuPDF } from './components/InteractiveVastuPDF';
+import { DownloadCenterModal } from './components/DownloadCenterModal';
 import { ConsultantProfile } from './components/ConsultantProfile';
 import { Footer } from './components/Footer';
 import { 
@@ -34,11 +35,13 @@ import {
   Moon,
   ShieldAlert,
   Package,
-  FileText
+  FileText,
+  Download
 } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('all-vastu');
+  const [isDownloadCenterOpen, setIsDownloadCenterOpen] = useState<boolean>(false);
 
   const scrollToAudit = () => {
     setActiveTab('audit');
@@ -53,6 +56,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenAudit={scrollToAudit}
+        onOpenDownloadCenter={() => setIsDownloadCenterOpen(true)}
       />
 
       {/* Hero Banner Section */}
@@ -88,6 +92,14 @@ export default function App() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+                <button
+                  onClick={() => setIsDownloadCenterOpen(true)}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 hover:from-amber-700 hover:to-amber-900 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer ring-2 ring-amber-400 active:scale-95"
+                >
+                  <Download className="w-4 h-4 text-amber-200 animate-bounce" />
+                  <span>📥 डाउनलोड केंद्र (PDF / ZIP)</span>
+                </button>
+
                 <button
                   onClick={() => setActiveTab('compass-map')}
                   className="px-4 py-2.5 rounded-xl bg-amber-800 hover:bg-amber-900 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
@@ -356,6 +368,14 @@ export default function App() {
 
       {/* Floating Sticky Mobile Quick Action Bar */}
       <div className="no-print fixed bottom-3 left-1/2 -translate-x-1/2 z-40 bg-stone-900/95 backdrop-blur-md text-white rounded-full px-4 py-2 border border-amber-500/50 shadow-xl flex items-center gap-3 sm:hidden">
+        <button
+          onClick={() => setIsDownloadCenterOpen(true)}
+          className="flex items-center gap-1 text-xs font-bold text-amber-400 cursor-pointer"
+        >
+          <Download className="w-3.5 h-3.5" />
+          <span>डाउनलोड</span>
+        </button>
+        <span className="text-stone-600">|</span>
         <a
           href="tel:9509061075"
           className="flex items-center gap-1.5 text-xs font-bold text-amber-300"
@@ -374,6 +394,12 @@ export default function App() {
           <span>व्हाट्सएप</span>
         </a>
       </div>
+
+      {/* Download Center Modal */}
+      <DownloadCenterModal
+        isOpen={isDownloadCenterOpen}
+        onClose={() => setIsDownloadCenterOpen(false)}
+      />
 
       {/* Footer */}
       <Footer />

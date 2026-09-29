@@ -11,8 +11,13 @@ import {
   MessageCircle, 
   RotateCcw,
   Building,
-  Award
+  Award,
+  BookOpen
 } from 'lucide-react';
+import { 
+  downloadVastuCertificateDoc, 
+  downloadComprehensiveVastuGuidebook 
+} from '../utils/downloadHelpers';
 
 export const InteractiveVastuPDF: React.FC = () => {
   const [templeName, setTempleName] = useState<string>('श्री चिंतामणि पार्श्वनाथ श्वेतांबर जैन मंदिर');
@@ -23,16 +28,34 @@ export const InteractiveVastuPDF: React.FC = () => {
   const [inspectionDate, setInspectionDate] = useState<string>('29 सितंबर 2026');
   const [vastuScore, setVastuScore] = useState<number>(94);
   const [certificateNo, setCertificateNo] = useState<string>('SJEA/MJV/2026-89');
+  const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
+
+  const currentData = {
+    templeName,
+    trustName,
+    cityState,
+    moolnayakName,
+    plotSize,
+    inspectionDate,
+    vastuScore,
+    certificateNo
+  };
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDirectDownload = () => {
+    downloadVastuCertificateDoc(currentData);
+    setDownloadSuccess(true);
+    setTimeout(() => setDownloadSuccess(false), 4000);
   };
 
   return (
     <div className="space-y-6">
       {/* Controls & Customization Panel (Hidden in Print) */}
       <div className="no-print bg-white rounded-3xl border-2 border-amber-300 p-5 sm:p-7 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-amber-200 gap-4">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-5 border-b border-amber-200 gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-1.5 border border-amber-300">
               <FileText className="w-4 h-4 text-amber-700" />
@@ -42,18 +65,46 @@ export const InteractiveVastuPDF: React.FC = () => {
               इंटरएक्टिव मंदिर वास्तु प्रमाण-पत्र (Interactive Vastu PDF)
             </h2>
             <p className="text-stone-600 text-xs sm:text-sm mt-0.5">
-              अपने मंदिर का विवरण भरें और नीचे तैयार आधिकारिक 'वास्तु प्रमाण-पत्र एवं ऑडिट रिपोर्ट' को पीडीएफ (PDF) के रूप में डाउनलोड/प्रिंट करें।
+              अपने मंदिर का विवरण भरें और नीचे तैयार आधिकारिक 'वास्तु प्रमाण-पत्र एवं ऑडिट रिपोर्ट' को पीडीएफ (PDF) या फ़ाइल के रूप में 1-क्लिक में डाउनलोड करें।
             </p>
           </div>
 
-          <button
-            onClick={handlePrint}
-            className="px-5 py-2.5 bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900 text-white font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 shadow-sm cursor-pointer shrink-0"
-          >
-            <Printer className="w-4 h-4 text-amber-300" />
-            <span>PDF डाउनलोड / प्रिंट करें</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button
+              onClick={handleDirectDownload}
+              className="px-4 py-2.5 bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900 text-white font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 shadow-sm cursor-pointer active:scale-95 transition-all"
+              title="प्रमाण-पत्र फ़ाइल डाउनलोड करें"
+            >
+              <Download className="w-4 h-4 text-amber-300" />
+              <span>प्रमाण-पत्र फ़ाइल डाउनलोड करें</span>
+            </button>
+
+            <button
+              onClick={handlePrint}
+              className="px-4 py-2.5 bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold text-xs sm:text-sm rounded-xl border border-amber-400 flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95 transition-all"
+              title="ब्राउज़र से सीधे प्रिंट या PDF सेव करें"
+            >
+              <Printer className="w-4 h-4 text-amber-800" />
+              <span>प्रिंट / PDF सेव</span>
+            </button>
+
+            <button
+              onClick={() => downloadComprehensiveVastuGuidebook()}
+              className="px-3.5 py-2.5 bg-stone-100 hover:bg-amber-50 text-stone-800 font-semibold text-xs rounded-xl border border-stone-300 flex items-center gap-1.5 cursor-pointer"
+              title="संपूर्ण 26 अध्यायों की वास्तु ई-बुक डाउनलोड करें"
+            >
+              <BookOpen className="w-4 h-4 text-amber-700" />
+              <span className="hidden sm:inline">वास्तु ग्रन्थ डाउनलोड</span>
+            </button>
+          </div>
         </div>
+
+        {downloadSuccess && (
+          <div className="mt-3 p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>वास्तु प्रमाण-पत्र सफलतापूर्वक आपकी डिवाइस में डाउनलोड हो गया है!</span>
+          </div>
+        )}
 
         {/* Input Fields */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-5 text-xs">
