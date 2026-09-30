@@ -599,7 +599,97 @@ export function downloadPratishthaSamagriDoc() {
   triggerBlobDownload(blob, 'Jain_Mandir_Pratishtha_Vidhi_Samagri_List.html');
 }
 
-// 4. Download Complete Project Source Code & Assets as a ZIP Archive
+// 4. Download Blank / Custom Seva Sankalp Form (सेवा संकल्प पत्र)
+export function downloadSevaSankalpDoc() {
+  const htmlContent = `<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>जिनालय निर्माण एवं जीर्णोद्धार सेवा संकल्प पत्र</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600;700;800&family=Poppins:wght@400;600;700&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', 'Noto Serif Devanagari', serif;
+      background-color: #faf6ed;
+      color: #262626;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .print-bar { margin-bottom: 20px; text-align: center; }
+    .btn {
+      background: #92400e; color: white; border: none; padding: 10px 24px;
+      font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer;
+    }
+    .cert-container {
+      width: 100%; max-width: 850px; background: white;
+      border: 12px double #b45309; padding: 36px 40px; border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08); position: relative;
+    }
+    .header { text-align: center; border-bottom: 2px solid #f59e0b; padding-bottom: 16px; margin-bottom: 20px; }
+    .navkar { font-size: 16px; font-weight: 700; color: #b45309; letter-spacing: 1px; }
+    h1 { font-size: 26px; color: #78350f; margin: 8px 0; font-family: 'Noto Serif Devanagari', serif; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; font-size: 14px; }
+    .field { padding: 10px; border: 1px solid #fde68a; border-radius: 8px; background: #fffcf2; }
+    .label { font-size: 11px; color: #78350f; font-weight: bold; display: block; }
+    .pledge-box { background: #fef3c7; border: 2px dashed #b45309; padding: 16px; border-radius: 12px; margin: 20px 0; font-size: 14px; text-align: center; line-height: 1.8; }
+    .footer { display: flex; justify-content: space-between; margin-top: 36px; padding-top: 20px; border-top: 1px solid #e5e5e5; font-size: 13px; }
+    @media print {
+      body { background: white; padding: 0; }
+      .print-bar { display: none; }
+      .cert-container { box-shadow: none; border-width: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="print-bar">
+    <button class="btn" onclick="window.print()">🖨️ सेवा संकल्प पत्र प्रिंट / PDF सेव करें</button>
+  </div>
+  <div class="cert-container">
+    <div class="header">
+      <div class="navkar">॥ ॐ णमो अरिहंताणं • ॐ अर्हम् ॥</div>
+      <h1>जिनालय निर्माण एवं जीर्णोद्धार सेवा संकल्प पत्र</h1>
+      <p style="font-size: 12px; color: #78350f;">100% जैन शास्त्र सम्मत देवद्रव्य शुद्धि व मर्यादा सहित पुण्य संचय</p>
+    </div>
+    <div class="pledge-box">
+      <strong>"जिनेंद्र देव के जिनालय में एक भी पाषाण शिला लगाने का फल कोटि-कोटि जन्मों के पापों का क्षय और अक्षय पुण्य का संचय है।"</strong><br/>
+      मैं / हम जिन शासन की प्रभावना एवं आत्म-कल्याण हेतु इस जिनालय निर्माण/जीर्णोद्धार में अपनी स्व-अर्जित सात्विक लक्ष्मी से सेवा समर्पण का संकल्प लेता हूँ।
+    </div>
+    <div class="grid">
+      <div class="field"><span class="label">संकल्पकर्ता श्रावक/श्राविका का नाम:</span> ____________________________________</div>
+      <div class="field"><span class="label">पिता / पति का नाम:</span> ____________________________________</div>
+      <div class="field"><span class="label">गोत्र एवं कुल:</span> ____________________________________</div>
+      <div class="field"><span class="label">मूल वतन / वर्तमान शहर:</span> ____________________________________</div>
+      <div class="field"><span class="label">मोबाइल / WhatsApp नंबर:</span> ____________________________________</div>
+      <div class="field"><span class="label">चयनित परियोजना:</span> ____________________________________</div>
+      <div class="field"><span class="label">सेवा स्वरूप (वेदी/शिखर/शिला/कलश):</span> ____________________________________</div>
+      <div class="field"><span class="label">संकल्प राशि (अंकों व शब्दों में):</span> ₹ _________________________________</div>
+    </div>
+    <div class="field" style="margin-top: 10px;">
+      <span class="label">शिला / पट्टिका पर स्मृति नाम (In Memory Of):</span>
+      ____________________________________________________________________________________
+    </div>
+    <div class="footer">
+      <div>
+        <p><strong>संकल्पकर्ता के हस्ताक्षर:</strong> __________________</p>
+        <p style="font-size: 11px; color: #78350f; margin-top: 4px;">दिनांक: _______________</p>
+      </div>
+      <div style="text-align: right;">
+        <p><strong>मार्गदर्शक: संजीव सिपानी</strong></p>
+        <p style="font-size: 11px; color: #525252;">सिपानी जैन एजुकेशन सेंटर, जयपुर | 9509061075</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+  triggerBlobDownload(blob, 'Jain_Mandir_Seva_Sankalp_Patra.html');
+}
+
+// 5. Download Complete Project Source Code & Assets as a ZIP Archive
 export async function downloadCompleteProjectZip() {
   const zip = new JSZip();
 

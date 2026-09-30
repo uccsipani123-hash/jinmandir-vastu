@@ -14,6 +14,8 @@ import { PratishthaVidhiGuide } from './components/PratishthaVidhiGuide';
 import { MandirSamagriList } from './components/MandirSamagriList';
 import { InteractiveVastuPDF } from './components/InteractiveVastuPDF';
 import { GhantakarnaMahavirVastu } from './components/GhantakarnaMahavirVastu';
+import { MandirSevaSection } from './components/MandirSevaSection';
+import { ArchitecturalReferenceGallery } from './components/ArchitecturalReferenceGallery';
 import { DownloadCenterModal } from './components/DownloadCenterModal';
 import { ConsultantProfile } from './components/ConsultantProfile';
 import { Footer } from './components/Footer';
@@ -32,12 +34,14 @@ import {
   Award, 
   Ruler, 
   Clock, 
-  ShowerHead,
-  Moon,
-  ShieldAlert,
-  Package,
-  FileText,
-  Download
+  ShowerHead, 
+  Moon, 
+  ShieldAlert, 
+  Package, 
+  FileText, 
+  Download,
+  Heart,
+  Building2
 } from 'lucide-react';
 
 export default function App() {
@@ -131,6 +135,22 @@ export default function App() {
                 >
                   <ShowerHead className="w-4 h-4 text-emerald-300" />
                   <span>बाथरूम वास्तु</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('architecture-gallery')}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-700 via-amber-800 to-stone-900 hover:from-amber-800 hover:to-black text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer ring-1 ring-amber-400 active:scale-95"
+                >
+                  <Building2 className="w-4 h-4 text-amber-300" />
+                  <span>🏛️ स्थापत्य दीर्घा (3D Models)</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('seva')}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-700 via-rose-800 to-amber-900 hover:from-rose-800 hover:to-amber-950 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer ring-2 ring-rose-400/50 active:scale-95 animate-pulse"
+                >
+                  <Heart className="w-4 h-4 fill-current text-rose-300" />
+                  <span>🤝 मंदिर निर्माण सेवा (Seva Sankalp)</span>
                 </button>
 
                 <button
@@ -273,6 +293,20 @@ export default function App() {
             </div>
 
             <VastuCategoryView />
+          </section>
+        )}
+
+        {/* Render Tab: Architectural Reference Gallery */}
+        {activeTab === 'architecture-gallery' && (
+          <section className="space-y-6">
+            <ArchitecturalReferenceGallery />
+          </section>
+        )}
+
+        {/* Render Tab: Mandir Seva & Contribution */}
+        {activeTab === 'seva' && (
+          <section className="space-y-6">
+            <MandirSevaSection />
           </section>
         )}
 

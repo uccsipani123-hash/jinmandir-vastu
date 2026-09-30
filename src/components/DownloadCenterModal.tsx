@@ -13,12 +13,14 @@ import {
   Loader2,
   ExternalLink,
   Phone,
-  MessageCircle
+  MessageCircle,
+  Heart
 } from 'lucide-react';
 import { 
   downloadVastuCertificateDoc, 
   downloadComprehensiveVastuGuidebook, 
   downloadPratishthaSamagriDoc, 
+  downloadSevaSankalpDoc,
   downloadCompleteProjectZip 
 } from '../utils/downloadHelpers';
 
@@ -69,6 +71,11 @@ export const DownloadCenterModal: React.FC<DownloadCenterModalProps> = ({
   const handleDownloadPratishtha = () => {
     downloadPratishthaSamagriDoc();
     showNotice('प्रतिष्ठा विधि एवं सामग्री चेकलिस्ट डाउनलोड हुई!');
+  };
+
+  const handleDownloadSeva = () => {
+    downloadSevaSankalpDoc();
+    showNotice('जिनालय सेवा संकल्प प्रपत्र सफलतापूर्वक डाउनलोड हुआ!');
   };
 
   const handleDownloadZip = async () => {
@@ -230,7 +237,35 @@ export const DownloadCenterModal: React.FC<DownloadCenterModalProps> = ({
               </div>
             </div>
 
-            {/* Card 4: Complete Project Code ZIP */}
+            {/* Card 4: Seva Sankalp Patra */}
+            <div className="p-4 rounded-2xl bg-rose-50/70 border-2 border-rose-300 hover:border-rose-500 transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-rose-200 text-rose-900 text-[11px] font-bold">
+                    सेवा समर्पण
+                  </span>
+                  <Heart className="w-5 h-5 text-rose-700 fill-current" />
+                </div>
+                <h3 className="font-bold font-serif-jain text-base text-stone-900 mb-1">
+                  4. जिनालय निर्माण सेवा संकल्प प्रपत्र (Seva Pledge)
+                </h3>
+                <p className="text-xs text-stone-600 mb-3">
+                  चल रही जिनालय निर्माण, वेदी, तोरण, कलश व जीर्णोद्धार परियोजनाओं में शिला समर्पण का पावन संकल्प पत्र।
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={handleDownloadSeva}
+                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-rose-800 to-rose-900 hover:from-rose-900 hover:to-rose-950 text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98 transition-transform"
+                >
+                  <Download className="w-4 h-4 text-rose-200" />
+                  <span>सेवा संकल्प पत्र डाउनलोड करें (.html / print)</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Card 5: Complete Project Code ZIP */}
             <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-100/90 to-amber-200/50 border-2 border-amber-400 hover:border-amber-600 transition-all flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -240,7 +275,7 @@ export const DownloadCenterModal: React.FC<DownloadCenterModalProps> = ({
                   <FileCode className="w-5 h-5 text-amber-800" />
                 </div>
                 <h3 className="font-bold font-serif-jain text-base text-amber-950 mb-1">
-                  4. संपूर्ण प्रोजेक्ट ज़िप (Full Offline Project)
+                  5. संपूर्ण प्रोजेक्ट ज़िप (Full Offline Project)
                 </h3>
                 <p className="text-xs text-stone-700 mb-3">
                   पूरी वेबसाइट का सोर्स कोड, ऑफ़लाइन दर्शक (Offline HTML Viewer), डेटा फाइलें और पैकेज विन्यास एक ज़िप (.zip) फाइल में।
