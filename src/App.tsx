@@ -13,6 +13,7 @@ import { VastuDoshChecklist } from './components/VastuDoshChecklist';
 import { PratishthaVidhiGuide } from './components/PratishthaVidhiGuide';
 import { MandirSamagriList } from './components/MandirSamagriList';
 import { InteractiveVastuPDF } from './components/InteractiveVastuPDF';
+import { GhantakarnaMahavirVastu } from './components/GhantakarnaMahavirVastu';
 import { DownloadCenterModal } from './components/DownloadCenterModal';
 import { ConsultantProfile } from './components/ConsultantProfile';
 import { Footer } from './components/Footer';
@@ -133,11 +134,19 @@ export default function App() {
                 </button>
 
                 <button
+                  onClick={() => setActiveTab('ghantakarna')}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-700 via-amber-800 to-amber-900 hover:from-amber-800 hover:to-amber-950 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer ring-1 ring-amber-300 active:scale-95"
+                >
+                  <ShieldCheck className="w-4 h-4 text-amber-300" />
+                  <span>श्री घंटाकर्ण महावीर वास्तु</span>
+                </button>
+
+                <button
                   onClick={() => setActiveTab('dosh-checklist')}
                   className="px-4 py-2.5 rounded-xl bg-red-900 hover:bg-red-950 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
                 >
                   <ShieldAlert className="w-4 h-4 text-red-300" />
-                  <span>दोष चेकलिस्ट (12 दोष)</span>
+                  <span>वास्तु दोष व निवारण उपाय</span>
                 </button>
 
                 <button
@@ -252,7 +261,7 @@ export default function App() {
                   जैन श्वेतांबर मंदिर वास्तु विषय-संग्रह
                 </h2>
                 <p className="text-stone-600 text-xs sm:text-sm mt-0.5">
-                  वेदी, प्रतिमा, भैरव, दादागुरुदेव, मणिभद्र, शिखर ऊंचाई, जल, ड्रेनेज, उपाश्रय, तप-कक्ष सहित 26 विषयों का विस्तृत विवरण
+                  वेदी, प्रतिमा, घंटाकर्ण महावीर, नाकोड़ा भैरव, दादागुरुदेव, मणिभद्र, शिखर ऊंचाई, जल, ड्रेनेज, उपाश्रय सहित 27 विषयों का विस्तृत विवरण
                 </p>
               </div>
               <button
@@ -264,6 +273,13 @@ export default function App() {
             </div>
 
             <VastuCategoryView />
+          </section>
+        )}
+
+        {/* Render Tab: Shri Ghantakarna Mahavir Vastu */}
+        {activeTab === 'ghantakarna' && (
+          <section className="space-y-6">
+            <GhantakarnaMahavirVastu />
           </section>
         )}
 

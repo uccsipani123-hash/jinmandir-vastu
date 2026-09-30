@@ -7,6 +7,7 @@ import {
   Calendar, 
   BookOpen, 
   ShieldCheck, 
+  Shield,
   Printer, 
   Ruler, 
   Clock, 
@@ -117,11 +118,12 @@ export const Header: React.FC<HeaderProps> = ({
       <nav className="border-t border-amber-200/60 bg-white/70 overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 flex items-center space-x-1 sm:space-x-2 py-2">
           {[
-            { id: 'all-vastu', label: 'मंदिर वास्तु नियम (26 विषय)', icon: BookOpen },
+            { id: 'all-vastu', label: 'मंदिर वास्तु नियम (27 विषय)', icon: BookOpen },
+            { id: 'ghantakarna', label: 'श्री घंटाकर्ण महावीर वास्तु', icon: Shield },
+            { id: 'dosh-checklist', label: 'वास्तु दोष व निवारण उपाय (Remedies)', icon: ShieldAlert },
             { id: 'download-center', label: '📥 डाउनलोड केंद्र (PDF / ZIP)', icon: Download, isHighlight: true },
             { id: 'compass-map', label: 'दिशा चक्र व साधु प्रवाह', icon: Compass },
             { id: 'dimensions', label: 'माप कैलकुलेटर (Dimensions)', icon: Ruler },
-            { id: 'dosh-checklist', label: 'वास्तु दोष चेकलिस्ट (12 दोष)', icon: ShieldAlert },
             { id: 'pratishtha-vidhi', label: 'प्रतिष्ठा विधि (7 दिवस)', icon: Sparkles },
             { id: 'mandir-samagri', label: 'मंदिर सामग्री सूची (Items)', icon: Package },
             { id: 'vastu-pdf', label: 'इंटरएक्टिव वास्तु PDF (Certificate)', icon: FileText },
